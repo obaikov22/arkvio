@@ -59,7 +59,7 @@ class SettingsScreen extends ConsumerWidget {
             leading: Icon(Icons.info_outline, color: t.inkMuted),
             title: Text('Arkvio',
                 style: AppTextStyles.tileName.copyWith(color: t.ink)),
-            subtitle: Text('Версия 1.0.0',
+            subtitle: Text('Версия 1.0.1',
                 style:
                     AppTextStyles.tileSubtitle.copyWith(color: t.inkMuted)),
           ),

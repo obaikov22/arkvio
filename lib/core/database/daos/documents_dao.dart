@@ -97,4 +97,29 @@ class DocumentsDao extends DatabaseAccessor<AppDatabase>
           ..orderBy([(d) => OrderingTerm.asc(d.deadlineAt)]))
         .watch();
   }
+
+  Future<List<Document>> getDocumentsForDate(DateTime date) {
+    final start = DateTime(date.year, date.month, date.day);
+    final end = start.add(const Duration(days: 1));
+    return (select(documents)
+          ..where((d) =>
+              d.createdAt.isBiggerOrEqualValue(start) &
+              d.createdAt.isSmallerThanValue(end))
+          ..orderBy([(d) => OrderingTerm.asc(d.createdAt)]))
+        .get();
+  }
+
+  Future<Set<DateTime>> getDatesWithDocuments(int year, int month) async {
+    final start = DateTime(year, month, 1);
+    final end = DateTime(year, month + 1, 1);
+    final rows = await (select(documents)
+          ..where((d) =>
+              d.createdAt.isBiggerOrEqualValue(start) &
+              d.createdAt.isSmallerThanValue(end)))
+        .get();
+    return rows
+        .map((d) =>
+            DateTime(d.createdAt.year, d.createdAt.month, d.createdAt.day))
+        .toSet();
+  }
 }

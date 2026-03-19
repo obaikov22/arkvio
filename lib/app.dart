@@ -17,6 +17,7 @@ import 'features/onboarding/onboarding_screen.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/notes/create_note_screen.dart';
 import 'features/whats_new/whats_new_screen.dart';
+import 'features/calendar/calendar_screen.dart';
 import 'features/folders/folder_provider.dart';
 
 GoRouter buildRouter(bool onboardingDone, bool showWhatsNew) => GoRouter(
@@ -67,6 +68,8 @@ GoRouter buildRouter(bool onboardingDone, bool showWhatsNew) => GoRouter(
             path: '/settings', builder: (_, __) => const SettingsScreen()),
         GoRoute(
             path: '/whats_new', builder: (_, __) => const WhatsNewScreen()),
+        GoRoute(
+            path: '/calendar', builder: (_, __) => const CalendarScreen()),
       ],
     );
 

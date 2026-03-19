@@ -198,7 +198,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           setState(() => _selectedIndex = i);
           if (i == 1) context.push('/search');
           if (i == 2) context.push('/deadlines');
-          if (i == 3) context.push('/settings');
+          if (i == 3) context.push('/calendar');
+          if (i == 4) context.push('/settings');
         },
         destinations: const [
           NavigationDestination(
@@ -215,6 +216,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             icon: Icon(Icons.schedule_outlined),
             selectedIcon: Icon(Icons.schedule),
             label: 'Сроки',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.calendar_month_outlined),
+            selectedIcon: Icon(Icons.calendar_month),
+            label: 'Календарь',
           ),
           NavigationDestination(
             icon: Icon(Icons.more_horiz),
