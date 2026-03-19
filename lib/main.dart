@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 import 'core/services/notification_service.dart';
 import 'core/services/deadline_checker_task.dart';
+import 'core/services/whats_new_service.dart';
 import 'app.dart';
 
 void main() async {
@@ -28,8 +29,14 @@ void main() async {
 
   final prefs = await SharedPreferences.getInstance();
   final onboardingDone = prefs.getBool('onboarding_done') ?? false;
+  final showWhatsNew = await WhatsNewService.shouldShow();
 
-  runApp(ProviderScope(child: ArkvioApp(onboardingDone: onboardingDone)));
+  runApp(ProviderScope(
+    child: ArkvioApp(
+      onboardingDone: onboardingDone,
+      showWhatsNew: showWhatsNew,
+    ),
+  ));
 }
 
 Duration _initialDelayUntil9am() {

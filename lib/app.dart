@@ -16,11 +16,16 @@ import 'features/deadlines/deadlines_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/notes/create_note_screen.dart';
+import 'features/whats_new/whats_new_screen.dart';
 import 'features/folders/folder_provider.dart';
 
-GoRouter buildRouter(bool onboardingDone) => GoRouter(
+GoRouter buildRouter(bool onboardingDone, bool showWhatsNew) => GoRouter(
       navigatorKey: ArkvioRouter.navigatorKey,
-      initialLocation: onboardingDone ? '/' : '/onboarding',
+      initialLocation: !onboardingDone
+          ? '/onboarding'
+          : showWhatsNew
+              ? '/whats_new'
+              : '/',
       routes: [
         GoRoute(
             path: '/onboarding',
@@ -60,12 +65,19 @@ GoRouter buildRouter(bool onboardingDone) => GoRouter(
             path: '/deadlines', builder: (_, __) => const DeadlinesScreen()),
         GoRoute(
             path: '/settings', builder: (_, __) => const SettingsScreen()),
+        GoRoute(
+            path: '/whats_new', builder: (_, __) => const WhatsNewScreen()),
       ],
     );
 
 class ArkvioApp extends ConsumerStatefulWidget {
   final bool onboardingDone;
-  const ArkvioApp({super.key, required this.onboardingDone});
+  final bool showWhatsNew;
+  const ArkvioApp({
+    super.key,
+    required this.onboardingDone,
+    required this.showWhatsNew,
+  });
 
   @override
   ConsumerState<ArkvioApp> createState() => _ArkvioAppState();
@@ -77,7 +89,7 @@ class _ArkvioAppState extends ConsumerState<ArkvioApp> {
   @override
   void initState() {
     super.initState();
-    _router = buildRouter(widget.onboardingDone);
+    _router = buildRouter(widget.onboardingDone, widget.showWhatsNew);
     unawaited(_seedDatabase());
   }
 
